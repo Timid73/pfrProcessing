@@ -6,11 +6,11 @@ http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-	<context:component-scan base-package="pages" />
+	<context:component-scan base-package="beans" />
 
 	<bean id="LiquibaseUpdater" class="liquibase.integration.spring.SpringLiquibase">
 		<property name="dataSource" ref="dataSource" />
-		<property name="changeLog" value="classpath:db-changelog.xml" />
+		<property name="changeLog" value="classpath:/db/changelog-master.xml" />
 	</bean>
 
 	<bean id="propertyConfigurer"  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
