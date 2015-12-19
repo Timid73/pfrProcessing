@@ -1,4 +1,4 @@
-package io;
+package beans.services.io;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;

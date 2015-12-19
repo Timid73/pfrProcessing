@@ -1,4 +1,4 @@
-package DataBaseConnection;
+package beans.services.DataBaseConnection;
 
 import entity.BaseEntity;
 import org.hibernate.Query;
