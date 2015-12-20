@@ -9,4 +9,5 @@ public class Settings {
     public static final String PATH_TO_DIPOST = "data/toDipost";
     public static final String PATH_ARCHPOVE = "data/archive";
     public static final String FILE_MASK = "083";
+    public static final String TMP = "data/TEMP/unzip.xml";
 }

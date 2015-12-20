@@ -1,7 +1,8 @@
 package beans.services.io;
 
-import org.apache.commons.io.IOUtils;
+import com.google.common.io.CharStreams;
 import org.springframework.stereotype.Service;
+import settings.Settings;
 
 import java.io.*;
 import java.util.zip.ZipEntry;
@@ -12,14 +13,21 @@ import java.util.zip.ZipInputStream;
  */
 @Service
 public class ZipService {
-    static InputStream getInputStream(File zip, String entry) throws IOException {
-        ZipInputStream zin = new ZipInputStream(new FileInputStream(zip));
-        for (ZipEntry e; (e = zin.getNextEntry()) != null; ) {
-            if (e.getName().equals(entry)) {
-                return zin;
+    public InputStream getInputStream(File zip, String entry) {
+        ZipInputStream zin = null;
+        try {
+            zin = new ZipInputStream(new FileInputStream(zip));
+            for (ZipEntry e; (e = zin.getNextEntry()) != null; ) {
+                if (e.getName().equals(entry)) {
+                    return zin;
+                }
             }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        throw new EOFException("Cannot find " + entry);
+        return null;
     }
 
     public boolean isZipFile(File zip) throws FileNotFoundException {
@@ -29,18 +37,23 @@ public class ZipService {
         return true;
     }
 
-    public String getFile(File zip, String entry) {
+    public File unzipEntry(File zip, String entry) {
         if (zip == null || entry == null || !zip.isFile()) {
             return null;
         }
-        String file = null;
+        File unzip = null;
         try {
             InputStream inputStream = getInputStream(zip, entry);
-            file = IOUtils.toString(inputStream);
+            unzip = new File(Settings.TMP);
+            unzip.createNewFile();
+            FileWriter fileWriter = new FileWriter(unzip);
+            String content = CharStreams.toString(new InputStreamReader(inputStream, "windows-1251"));
+            fileWriter.write(content);
+            fileWriter.close();
+            inputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return file;
+        return unzip;
     }
 }
