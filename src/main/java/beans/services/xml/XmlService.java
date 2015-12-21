@@ -17,6 +17,8 @@ import java.io.StringReader;
 @Service
 public class XmlService {
 
+
+
     public Document getXmlDocument(InputStream inputStream) {
         if (inputStream == null) {
             return null;
@@ -30,6 +32,10 @@ public class XmlService {
         } catch (JDOMException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    public Package createPackage(Document xml) {
         return null;
     }
 }

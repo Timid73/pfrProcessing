@@ -12,7 +12,6 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "package")
 public class Package extends BaseEntity {
-    private String uid;
     @ManyToOne
     @JoinColumn(name = "from_organization_id", nullable = false)
     private Organization from;
@@ -21,7 +20,6 @@ public class Package extends BaseEntity {
     private Organization to;
     private Timestamp date;
     private String type;
-    private String content;
     private boolean positive;
     private Archive file;
 
@@ -49,14 +47,6 @@ public class Package extends BaseEntity {
         this.date = date;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public String getType() {
         return type;
     }
@@ -79,13 +69,5 @@ public class Package extends BaseEntity {
 
     public void setFile(Archive file) {
         this.file = file;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
     }
 }
