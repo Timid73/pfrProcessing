@@ -1,8 +1,6 @@
 package entity;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 
@@ -12,31 +10,27 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "package")
 public class Package extends BaseEntity {
-    @ManyToOne
-    @JoinColumn(name = "from_organization_id", nullable = false)
-    private Organization from;
-    @ManyToOne
-    @JoinColumn(name = "to_organization_id", nullable = false)
-    private Organization to;
+    private String sender;
+    private String recipient;
     private Timestamp date;
     private String type;
-    private boolean positive;
-    private Archive file;
+    private transient boolean positive;
+    private String file;
 
-    public Organization getFrom() {
-        return from;
+    public String getSender() {
+        return sender;
     }
 
-    public void setFrom(Organization from) {
-        this.from = from;
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
-    public Organization getTo() {
-        return to;
+    public String getRecipient() {
+        return recipient;
     }
 
-    public void setTo(Organization to) {
-        this.to = to;
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
     }
 
     public Timestamp getDate() {
@@ -63,11 +57,11 @@ public class Package extends BaseEntity {
         this.positive = positive;
     }
 
-    public Archive getFile() {
+    public String getFile() {
         return file;
     }
 
-    public void setFile(Archive file) {
+    public void setFile(String file) {
         this.file = file;
     }
 }

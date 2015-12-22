@@ -1,13 +1,12 @@
 package entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  * Created by Timid on 21.12.2015.
  */
+@Entity
+@Table(name = "transaction")
 public class Transaction extends BaseEntity {
     private String uid;
     private String type;

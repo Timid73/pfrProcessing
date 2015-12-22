@@ -11,7 +11,7 @@
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="transaction_pkey"/>
             </column>
-            <column name="uid" type="BIGINT">
+            <column name="uid" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="pension_id" type="BIGINT"/>
@@ -25,9 +25,9 @@
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="package_pkey"/>
             </column>
-            <column defaultValue="NULL::character varying" name="from" type="VARCHAR(255)"/>
-            <column defaultValue="NULL::character varying" name="to" type="VARCHAR(255)"/>
-            <column name="time" type="TIMESTAMP(29) WITHOUT TIME ZONE"/>
+            <column defaultValue="NULL::character varying" name="sender" type="VARCHAR(255)"/>
+            <column defaultValue="NULL::character varying" name="recipient" type="VARCHAR(255)"/>
+            <column name="date" type="TIMESTAMP(29) WITHOUT TIME ZONE"/>
             <column defaultValue="NULL::character varying" name="type" type="VARCHAR(255)"/>
             <column defaultValue="NULL::character varying" name="file" type="VARCHAR(1023)"/>
         </createTable>

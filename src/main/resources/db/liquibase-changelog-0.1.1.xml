@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="000011" author="timid" runOnChange="true">
+        <createTable tableName="archive">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="archive_pkey"/>
+            </column>
+            <column defaultValue="NULL::character varying" name="file_name" type="VARCHAR(1023)"/>
+            <column name="date" type="TIMESTAMP(29) WITHOUT TIME ZONE"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="000012" author="timid" runOnChange="true">
+        <createTable tableName="organization">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="organization_pkey"/>
+            </column>
+            <column defaultValue="NULL::character varying" name="name" type="VARCHAR(255)"/>
+            <column defaultValue="NULL::character varying" name="inn" type="VARCHAR(255)"/>
+            <column defaultValue="NULL::character varying" name="pfr_reg_num" type="VARCHAR(255)"/>
+            <column name="certificate" type="BYTEA"/>
+            <column name="cert_reg_date" type="TIMESTAMP(29) WITHOUT TIME ZONE"/>
+            <column defaultValue="NULL::character varying" name="email" type="VARCHAR(255)"/>
+            <column name="type" type="INT4"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

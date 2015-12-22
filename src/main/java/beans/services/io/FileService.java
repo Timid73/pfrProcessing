@@ -1,6 +1,7 @@
 package beans.services.io;
 
 import org.springframework.stereotype.Service;
+import settings.Settings;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -13,10 +14,13 @@ import java.util.List;
  */
 @Service
 public class FileService {
-    private FilenameFilter filter;
+    private final FilenameFilter filter = setFilter(Settings.FILE_MASK);
 
-    public void setFilter(String regex) {
-        filter = (dir, name) -> {
+    private FilenameFilter setFilter(String regex) {
+        if (filter != null) {
+            return filter;
+        }
+        FilenameFilter filter = (dir, name) -> {
             String lowercaseName = name.toLowerCase();
             if (lowercaseName.startsWith(regex)) {
                 return true;
@@ -24,6 +28,7 @@ public class FileService {
                 return false;
             }
         };
+        return filter;
     }
 
     public boolean filesExist(String existPath) {
