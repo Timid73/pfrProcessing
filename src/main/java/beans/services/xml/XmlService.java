@@ -27,6 +27,7 @@ public class XmlService {
         }
         try {
             String content = CharStreams.toString(new InputStreamReader(inputStream, "windows-1251"));
+            inputStream.close();
             SAXBuilder saxBuilder = new SAXBuilder();
             return saxBuilder.build(new StringReader(content));
         } catch (IOException e) {
