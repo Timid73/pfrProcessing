@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="000013" author="timid" runOnChange="true">
+        <createTable tableName="settings">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="settings_pkey"/>
+            </column>
+            <column defaultValue="NULL::character varying" name="key" type="VARCHAR(255)"/>
+            <column defaultValue="NULL::character varying" name="value" type="VARCHAR(1023)"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
