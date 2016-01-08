@@ -28,16 +28,17 @@ public class ScheduledTasks {
     @Autowired
     private XmlService xmlService;
 
-    @Scheduled(fixedRate = 50000)
+    @Scheduled(fixedRate = 5000)
     @Transactional
     protected void executeInternal() {
         for (File zip : fileService.getFiles(Settings.PATH_INCOMING)) {
             InputStream inputStream = zipService.getInputStream(zip, "packageDescription.xml");
             Document document = xmlService.getXmlDocument(inputStream);
             entity.Package pack = xmlService.createPackage(document);
-            pack.setFile(zip.getAbsolutePath());
-            persistanceService.create(pack);
-            zip.delete();
+            pack.setFile(fileService.getArchivePath() + zip.getName());
+            if (fileService.saveFile(zip)) {
+                persistanceService.create(pack);
+            }
         }
     }
 }
