@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import settings.Settings;
 
 import java.io.File;
 import java.io.InputStream;
@@ -31,7 +30,7 @@ public class ScheduledTasks {
     @Scheduled(fixedRate = 5000)
     @Transactional
     protected void executeInternal() {
-        for (File zip : fileService.getFiles(Settings.PATH_INCOMING)) {
+        for (File zip : fileService.getFiles()) {
             InputStream inputStream = zipService.getInputStream(zip, "packageDescription.xml");
             Document document = xmlService.getXmlDocument(inputStream);
             entity.Package pack = xmlService.createPackage(document);
