@@ -4,6 +4,7 @@ import beans.services.DataBaseConnection.PersistanceService;
 import beans.services.io.FileService;
 import beans.services.io.ZipService;
 import beans.services.xml.XmlService;
+import beans.settings.Settings;
 import org.jdom.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,6 +27,8 @@ public class ScheduledTasks {
     private ZipService zipService;
     @Autowired
     private XmlService xmlService;
+    @Autowired
+    private Settings settings;
 
     @Scheduled(fixedRate = 5000)
     @Transactional
@@ -35,8 +38,14 @@ public class ScheduledTasks {
             Document document = xmlService.getXmlDocument(inputStream);
             entity.Package pack = xmlService.createPackage(document);
             pack.setFile(fileService.getArchivePath() + zip.getName());
-            if (fileService.saveFile(zip)) {
-                persistanceService.create(pack);
+            if (pack.getSender().length() > 7) {
+                if (fileService.copyToArchive(zip) && fileService.moveFile(zip, settings.get(Settings.PATH_TO_VIPNET))) {
+                    persistanceService.create(pack);
+                }
+            } else {
+                if (fileService.copyToArchive(zip)) {
+                    persistanceService.create(pack);
+                }
             }
         }
     }

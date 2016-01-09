@@ -1,8 +1,6 @@
 package entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.security.cert.Certificate;
 import java.sql.Timestamp;
 
@@ -11,7 +9,14 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name = "organization")
+@NamedQueries({
+        @NamedQuery(
+                name = Organization.FIND_BY_REGNUM,
+                query = "SELECT o FROM Organization o WHERE o.pfrRegNum = :pfrRegNum"
+        )
+})
 public class Organization extends BaseEntity {
+    public static final String FIND_BY_REGNUM = "Organization.findByRegnum";
     enum Type {PAYER, PFR}
 
     private String name;

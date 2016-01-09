@@ -54,27 +54,27 @@ public class FileService {
         return new ArrayList<>(Arrays.asList(path.listFiles(filter)));
     }
 
-    public boolean saveFile(File file) {
+    public boolean moveFile(File file, String targetPath) {
+        try {
+            Files.move(file, new File(targetPath + file.getName()));
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean copyToArchive(File file) {
         String archivePath = getArchivePath();
-        if (new File(archivePath).exists()) {
-            try {
-                Files.copy(file, new File(archivePath + file.getName()));
-                Files.move(file, new File(settings.get(Settings.PATH_TO_VIPNET) + file.getName()));
-                return true;
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
-            }
-        } else {
-            try {
-                new File(archivePath).mkdirs();
-                Files.copy(file, new File(archivePath + file.getName()));
-                Files.move(file, new File(settings.get(Settings.PATH_TO_VIPNET) + file.getName()));
-                return true;
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
-            }
+        if (!new File(archivePath).exists()) {
+            new File(archivePath).mkdirs();
+        }
+        try {
+            Files.copy(file, new File(archivePath + file.getName()));
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
